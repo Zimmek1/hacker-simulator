@@ -539,19 +539,29 @@ function showTab(tab, button) {
 
   popup.classList.remove('hidden');
   popupTitle.textContent = tab.charAt(0).toUpperCase() + tab.slice(1);
+
   if (tab === 'achievements') {
-  const unlocked = unlockedAchievements.length;
-  const total = achievementsList.length;
-  popupBody.innerHTML = `<strong>Achievements Unlocked: ${unlocked}/${total}</strong><br><br>`;
-  
-  achievementsList.forEach(ach => {
-    if (unlockedAchievements.includes(ach.id)) {
-      popupBody.innerHTML += `🏆 ${ach.id} <br>`;
-    } else {
-      popupBody.innerHTML += `🔒 ??? <br>`;
-    }
-  });
-}
+    const unlocked = unlockedAchievements.length;
+    const total = achievementsList.length;
+    popupBody.innerHTML = `<strong>Achievements Unlocked: ${unlocked}/${total}</strong><br><br>`;
+    achievementsList.forEach(ach => {
+      if (unlockedAchievements.includes(ach.id)) {
+        popupBody.innerHTML += `🏆 ${ach.id} <br>`;
+      } else {
+        popupBody.innerHTML += `🔒 ??? <br>`;
+      }
+    });
+  } else if (tab === 'stats') {
+    popupBody.innerHTML = `Total Clicks: ${clicks}<br>Biggest DPS: ${formatNumber(dps)}`;
+  } else if (tab === 'settings') {
+    popupBody.innerHTML = `
+      <button class="settings-button" onclick="saveGame()">Save Game</button>
+      <button class="settings-button" onclick="loadGame()">Load Game</button>
+      <button class="settings-button" onclick="resetGame()">Reset Game</button>
+    `;
+  }
+} // 👈 THIS CLOSING BRACE is the one you likely missed!
+
 
 
 function closePopup() {
