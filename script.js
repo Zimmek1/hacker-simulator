@@ -541,25 +541,28 @@ function showTab(tab, button) {
   popupTitle.textContent = tab.charAt(0).toUpperCase() + tab.slice(1);
 
   if (tab === 'achievements') {
-    const unlocked = unlockedAchievements.length;
-    const total = achievementsList.length;
-    popupBody.innerHTML = `<strong>Achievements Unlocked: ${unlocked}/${total}</strong><br><br>`;
-    achievementsList.forEach(ach => {
-      if (unlockedAchievements.includes(ach.id)) {
-        popupBody.innerHTML += `
-          <div style="display:flex;align-items:center;margin-bottom:5px;">
-            ${getTrophySVG()} ${ach.id}
-          </div>
-        `;
-      } else {
-        popupBody.innerHTML += `
-          <div style="display:flex;align-items:center;margin-bottom:5px;">
-            ${getLockSVG()} ??? 
-          </div>
-        `;
-      }
-    });
-  } else if (tab === 'stats') {
+  const unlocked = unlockedAchievements.length;
+  const total = achievementsList.length;
+  
+  popupBody.innerHTML = `
+    <strong>Achievements Unlocked: ${unlocked}/${total}</strong>
+    <div class="achievements-grid"></div>
+  `;
+  
+  const grid = popupBody.querySelector('.achievements-grid');
+
+  achievementsList.forEach(ach => {
+    const item = document.createElement('div');
+    item.classList.add('achievement-item');
+    if (unlockedAchievements.includes(ach.id)) {
+      item.innerHTML = `${getTrophySVG()} ${ach.id}`;
+    } else {
+      item.innerHTML = `${getLockSVG()} ???`;
+    }
+    grid.appendChild(item);
+  });
+}
+ else if (tab === 'stats') {
     popupBody.innerHTML = `Total Clicks: ${clicks}<br>Biggest DPS: ${formatNumber(dps)}`;
   } else if (tab === 'settings') {
     popupBody.innerHTML = `
