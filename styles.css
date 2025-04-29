@@ -558,12 +558,13 @@ html, body {
 .upgrade-icon {
   width: 32px;
   height: 32px;
-  margin: auto;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
+  margin: auto;
 }
 
+/* Specific icons */
 .upgrade-icon.computer {
   background-image: url('icons/computer.svg');
 }
@@ -591,6 +592,11 @@ html, body {
 .upgrade-icon.bug {
   background-image: url('icons/bug.svg');
 }
+
+.upgrade-icon.blackhole {
+  background-image: url('icons/blackhole.svg');
+}
+
 
 .upgrade-icon.blackhole {
   background-image: url('icons/blackhole.svg');
