@@ -534,10 +534,11 @@ html, body {
 
 .achievements-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(3, 1fr); /* ← now 3 columns! */
   gap: 10px;
   margin-top: 10px;
 }
+
 
 .achievement-item {
   display: flex;
