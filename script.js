@@ -546,9 +546,17 @@ function showTab(tab, button) {
     popupBody.innerHTML = `<strong>Achievements Unlocked: ${unlocked}/${total}</strong><br><br>`;
     achievementsList.forEach(ach => {
       if (unlockedAchievements.includes(ach.id)) {
-        popupBody.innerHTML += `🏆 ${ach.id} <br>`;
+        popupBody.innerHTML += `
+          <div style="display:flex;align-items:center;margin-bottom:5px;">
+            ${getTrophySVG()} ${ach.id}
+          </div>
+        `;
       } else {
-        popupBody.innerHTML += `🔒 ??? <br>`;
+        popupBody.innerHTML += `
+          <div style="display:flex;align-items:center;margin-bottom:5px;">
+            ${getLockSVG()} ??? 
+          </div>
+        `;
       }
     });
   } else if (tab === 'stats') {
@@ -560,7 +568,25 @@ function showTab(tab, button) {
       <button class="settings-button" onclick="resetGame()">Reset Game</button>
     `;
   }
-} // 👈 THIS CLOSING BRACE is the one you likely missed!
+}
+
+function getTrophySVG() {
+  return `
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00FF00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:8px;">
+      <path d="M8 21h8M12 17v4M18 8a6 6 0 01-12 0V4h12zM5 4h14"></path>
+    </svg>
+  `;
+}
+
+function getLockSVG() {
+  return `
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:8px;">
+      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+      <path d="M7 11V7a5 5 0 0110 0v4"></path>
+    </svg>
+  `;
+}
+
 
 
 
