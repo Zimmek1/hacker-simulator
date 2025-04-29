@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>💻 Hacker Simulator</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <canvas id="background"></canvas>
+
+  <div id="navbar">
+    <button class="tab" onclick="showTab('achievements', this)">Achievements</button>
+    <button class="tab" onclick="showTab('stats', this)">Stats</button>
+    <button class="tab" onclick="showTab('settings', this)">Settings</button>
+  </div>
+
+  <div id="hud">
+    <div id="left-panel">
+      <div id="hud-top">
+        <div id="counter">Data Stolen: 0 MB</div>
+        <div id="dps">DPS: 0</div>
+      </div>
+
+      <button id="clicker" style="position: relative;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="175" height="175" viewBox="0 0 24 24" fill="none" stroke="#00FF00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect>
+          <path d="M8 9l3 3-3 3M13 15h4"></path>
+        </svg>
+        <div id="click-effect-container"></div>
+      </button>
+    </div>
+
+    <div id="middle-panel">
+      <div id="middle-inner">
+        <div id="buy-amount-buttons">
+          <button onclick="setBuyAmount(1, this)">Buy 1</button>
+          <button onclick="setBuyAmount(10, this)">Buy 10</button>
+          <button onclick="setBuyAmount(100, this)">Buy 100</button>
+          <button onclick="setBuyAmount('max', this)">Buy Max</button>
+        </div>
+        <h2>Upgrades</h2>
+      </div>
+      <div id="upgrades" class="upgrade-grid"></div>
+    </div>
+
+    <div id="right-panel">
+      <h2>Enhancements</h2>
+      <div id="enhancements"></div>
+    </div>
+  </div>
+
+  <div id="popup" class="hidden">
+    <div id="popup-content">
+      <h2 id="popup-title"></h2>
+      <div id="popup-body"></div>
+      <button class="settings-button" onclick="closePopup()">Close</button>
+    </div>
+  </div>
+
+  <div id="unlock-popup" class="hidden">
+    <div id="unlock-text">Unlocked!</div>
+  </div>
+
+  <!-- Achievement Popups -->
+  <div id="achievement-container"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

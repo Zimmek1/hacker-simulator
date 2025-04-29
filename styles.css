@@ -1,0 +1,535 @@
+/* GENERAL PAGE */
+body, html {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: monospace;
+  height: 100%;
+  background: black;
+}
+
+/* MATRIX BACKGROUND */
+#background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+}
+
+/* NAVIGATION TABS */
+#navbar {
+  background: rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  z-index: 2;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 0 auto;
+  width: fit-content;
+}
+
+.tab {
+  background: #222;
+  color: #0f0;
+  border: 1px solid #0f0;
+  margin: 0 5px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s, transform 0.3s, box-shadow 0.3s;
+  transform: scale(1);
+}
+
+.tab:hover {
+  background: #0f0;
+  color: #000;
+  transform: scale(1.1);
+  box-shadow: 0 0 10px #0f0;
+}
+
+.tab.active {
+  background: #0f0;
+  color: #000;
+}
+
+/* MAIN GAME AREA */
+#hud {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+  margin-top: 10px;
+  width: 1200px;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  gap: 40px;
+  align-items: flex-start; /* already there */
+  min-height: 100vh; /* <-- Force full height scrolling */
+}
+
+/* LEFT PANEL */
+#left-panel {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 20px;
+  border-radius: 10px;
+  color: #0f0;
+  min-width: 250px;
+  height: 90vh; /* make it almost full height */
+  position: sticky; /* <<< ⭐ sticky position */
+  top: 20px;        /* <<< ⭐ stays 20px from the top when you scroll */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* <<< ⭐ center the clicker + text inside */
+}
+
+#middle-panel {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 20px;
+  border-radius: 10px;
+  color: #0f0;
+  min-width: 500px;
+  max-width: 600px; /* ⭐ limit width */
+  max-height: 85vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* ⭐ center Upgrades text + grid */
+}
+
+#upgrades {
+  width: 100%; /* ⭐ make upgrade cards fit the panel */
+}
+
+#right-panel {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 20px;
+  border-radius: 10px;
+  color: #0f0;
+  min-width: 250px; /* ⭐ make Enhancements panel smaller */
+  max-width: 300px;
+  max-height: 85vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* ⭐ center Enhancements header/icons */
+}
+
+
+/* CLICKER */
+#clicker {
+  background: none;
+  border: none;
+  margin-top: 20px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* ⭐ centers it horizontally */
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+#clicker svg {
+  transition: transform 0.2s, filter 0.2s;
+}
+
+#clicker:active svg {
+  transform: scale(1.2);
+  filter: drop-shadow(0 0 10px #0f0);
+}
+
+/* BUY AMOUNT BUTTONS */
+#buy-amount-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+#buy-amount-buttons button {
+  background: #111;
+  color: #0f0;
+  border: 2px solid #0f0;
+  margin: 2px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+#buy-amount-buttons button.active {
+  background: #0f0;
+  color: #000;
+}
+
+/* UPGRADE GRID */
+.upgrade-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  justify-content: center;
+}
+
+/* UPGRADE CARD */
+.upgrade-card {
+  background: #222;
+  border: 2px solid #0f0;
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+  color: #0f0;
+  position: relative;
+}
+
+.upgrade-card button {
+  background: #111;
+  color: #0f0;
+  border: 2px solid #0f0;
+  margin: 5px 2px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 12px;
+  transform: scale(1);
+  transform-origin: center center;
+  will-change: transform;
+  transition: background 0.3s, color 0.3s, transform 0.3s, border 0.3s;
+}
+
+.upgrade-card button:hover {
+  background: #111;
+  color: #0f0;
+  transform: scale(1);
+}
+
+
+@keyframes floatUp {
+  0% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-40px); }
+}
+
+/* UPGRADE ICONS */
+.upgrade-icon {
+  height: 50px;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.upgrade-icon svg {
+  width: 40px;
+  height: 40px;
+}
+
+/* LOCKED UPGRADE */
+.locked {
+  opacity: 0.2;
+}
+
+/* MINI ICONS */
+.mini-icons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 5px;
+  min-height: 20px;
+}
+
+.mini-icon {
+  background: #0f0;
+  width: 10px;
+  height: 10px;
+  margin: 2px;
+  border-radius: 50%;
+}
+
+/* ENHANCEMENTS */
+#enhancements {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.enhancement-button {
+  background: #222;
+  border: 2px solid #0f0;
+  color: #0f0;
+  width: 60px;
+  height: 60px;
+  margin: 5px;
+  border-radius: 8px;
+  cursor: pointer;
+  position: relative;
+}
+
+.enhancement-button svg {
+  width: 30px;
+  height: 30px;
+}
+
+.enhancement-button.purchased {
+  opacity: 0.6;
+  border-color: #0f0;
+  color: #0f0;
+  filter: none;
+  position: relative;
+}
+
+.enhancement-button.purchased::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  right: 7px;
+  width: 4px;
+  height: 10px;
+  border-right: 2px solid #00FF00;
+  border-bottom: 2px solid #00FF00;
+  transform: rotate(45deg);
+  pointer-events: none;
+}
+
+/* ENHANCEMENT TOOLTIP */
+.enhancement-button:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #000;
+  color: #0f0;
+  border: 1px solid #0f0;
+  padding: 5px 10px;
+  font-size: 12px;
+  border-radius: 5px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* SETTINGS BUTTON */
+.settings-button {
+  background: #333;
+  color: #0f0;
+  border: 2px solid #0f0;
+  margin: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+/* POPUP MODAL */
+#popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3;
+}
+
+#popup.hidden {
+  display: none;
+}
+
+#popup-content {
+  background: rgba(0, 0, 0, 0.9);
+  padding: 30px;
+  border: 2px solid #0f0;
+  border-radius: 10px;
+  color: #0f0;
+  width: 400px;
+  text-align: center;
+}
+
+#popup-content h2 {
+  margin-top: 0;
+}
+
+/* UNLOCK POPUP */
+#unlock-popup {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #000;
+  color: #0f0;
+  padding: 20px 40px;
+  border: 2px solid #0f0;
+  border-radius: 10px;
+  font-size: 20px;
+  z-index: 4;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+#unlock-popup.show {
+  opacity: 1;
+}
+
+/* ACHIEVEMENT POPUPS */
+#achievement-container {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.achievement-popup {
+  background: #000;
+  color: #0f0;
+  border: 2px solid #0f0;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  opacity: 0;
+  animation: fadePopup 3s forwards;
+}
+
+@keyframes fadePopup {
+  0% { opacity: 1; transform: translateX(0); }
+  80% { opacity: 1; transform: translateX(0); }
+  100% { opacity: 0; transform: translateX(-50px); }
+}
+
+#middle-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* CLICK EFFECT INSIDE UPGRADE CARD */
+.click-effect-container {
+  position: relative;
+  overflow: visible;
+  width: 100%;
+  height: 0;
+}
+
+.click-effect {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(0);
+  color: #0f0;
+  font-size: 16px;
+  font-family: monospace;
+  animation: floatUp 1s forwards;
+  pointer-events: none;
+}
+#hud-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+#counter-label {
+  font-size: 20px;
+  color: #00FF00;
+  opacity: 0.8;
+  margin-bottom: 4px;
+}
+
+#counter {
+  font-size: 36px;
+  font-weight: bold;
+  color: #00FF00;
+  text-shadow: 0 0 5px #00FF00, 0 0 10px #00FF00;
+  margin-bottom: 8px;
+}
+
+#dps {
+  font-size: 22px;
+  color: #00FF00;
+  text-shadow: 0 0 5px #00FF00, 0 0 10px #00FF00;
+  opacity: 0.8;
+}
+
+/* === SCROLLBAR (Webkit Browsers like Chrome, Edge) === */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: black;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #00FF00;
+  border-radius: 5px;
+  box-shadow: 0 0 10px #00FF00, 0 0 20px #00FF00;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00ff88;
+}
+
+/* === SCROLLBAR (Firefox) === */
+html {
+  scrollbar-width: thin; /* 'auto' or 'thin' */
+  scrollbar-color: #00FF00 black; /* thumb color, track color */
+}
+
+/* Optional: Firefox on hover — cannot do hover effects exactly like Webkit,
+but the thumb will still be neon green on black normally */
+
+html, body {
+  height: auto;
+  min-height: 100%;
+}
+
+.enhancement-icon {
+  width: 24px;
+  height: 24px;
+  margin: auto;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Now one background-image per type */
+.enhancement-icon.computer {
+  background-image: url('icons/computer.svg');
+}
+
+.enhancement-icon.globe {
+  background-image: url('icons/globe.svg');
+}
+
+.enhancement-icon.building {
+  background-image: url('icons/building.svg');
+}
+
+.enhancement-icon.dna {
+  background-image: url('icons/dna.svg');
+}
+
+.enhancement-icon.chip {
+  background-image: url('icons/chip.svg');
+}
+
+.enhancement-icon.cloud {
+  background-image: url('icons/cloud.svg');
+}
+
+.enhancement-icon.bug {
+  background-image: url('icons/bug.svg');
+}
+
+.enhancement-icon.blackhole {
+  background-image: url('icons/blackhole.svg');
+}
+
+
