@@ -590,6 +590,11 @@ function getLockSVG() {
   `;
 }
 
+popupBody.innerHTML += `
+  <div class="achievement-entry">
+    ${getLockSVG()} ??? 
+  </div>
+`;
 
 
 
