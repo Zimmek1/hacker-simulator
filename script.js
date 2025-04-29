@@ -223,14 +223,16 @@ function createUpgradeCards() {
     if (upgrade.unlocked) {
       const totalCost = calculateTotalCost(upgrade);
       card.innerHTML = `
-        <div class="upgrade-icon">${getUpgradeSVG(upgrade.icon)}</div>
-  <strong>${upgrade.name}</strong><br>
-  Owned: ${upgrade.amount}<br>
-  +${formatNumber(upgrade.amount * upgrade.dps)} DPS<br>
-  Cost: ${formatNumber(totalCost)}<br>
-  <button onclick="buyUpgrade('${key}')">Buy</button>
-  <button onclick="sellUpgrade('${key}')">Sell</button>
-  <div class="mini-icons" id="minis-${key}"></div>
+        <div class="upgrade-icon">
+          <img src="icons/${upgrade.icon}.svg" style="width: 32px; height: 32px;" />
+        </div>
+        <strong>${upgrade.name}</strong><br>
+        Owned: ${upgrade.amount}<br>
+        +${formatNumber(upgrade.amount * upgrade.dps)} DPS<br>
+        Cost: ${formatNumber(totalCost)}<br>
+        <button onclick="buyUpgrade('${key}')">Buy</button>
+        <button onclick="sellUpgrade('${key}')">Sell</button>
+        <div class="mini-icons" id="minis-${key}"></div>
       `;
     } else {
       card.classList.add('locked');
@@ -245,6 +247,7 @@ function createUpgradeCards() {
     updateMiniIcons(key);
   }
 }
+
 
 // === Locked Icon SVG
 function getLockedSVG() {
