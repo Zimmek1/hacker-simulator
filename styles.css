@@ -532,4 +532,16 @@ html, body {
   background-image: url('icons/blackhole.svg');
 }
 
+.achievements-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.achievement-item {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+}
 
