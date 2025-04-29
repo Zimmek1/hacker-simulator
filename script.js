@@ -224,7 +224,7 @@ function createUpgradeCards() {
       const totalCost = calculateTotalCost(upgrade);
       card.innerHTML = `
         <div class="upgrade-icon">
-          <img src="icons/${upgrade.icon}.svg" style="width: 32px; height: 32px;" />
+          <img src="icons/${upgrade.icon}.svg" style="width: 32px; height: 32px; display: block; margin: auto;" />
         </div>
         <strong>${upgrade.name}</strong><br>
         Owned: ${upgrade.amount}<br>
@@ -247,6 +247,7 @@ function createUpgradeCards() {
     updateMiniIcons(key);
   }
 }
+
 
 
 // === Locked Icon SVG
