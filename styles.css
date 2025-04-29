@@ -555,3 +555,43 @@ html, body {
   justify-content: center;
 }
 
+.upgrade-icon {
+  width: 32px;
+  height: 32px;
+  margin: auto;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.upgrade-icon.computer {
+  background-image: url('icons/computer.svg');
+}
+
+.upgrade-icon.globe {
+  background-image: url('icons/globe.svg');
+}
+
+.upgrade-icon.building {
+  background-image: url('icons/building.svg');
+}
+
+.upgrade-icon.dna {
+  background-image: url('icons/dna.svg');
+}
+
+.upgrade-icon.chip {
+  background-image: url('icons/chip.svg');
+}
+
+.upgrade-icon.cloud {
+  background-image: url('icons/cloud.svg');
+}
+
+.upgrade-icon.bug {
+  background-image: url('icons/bug.svg');
+}
+
+.upgrade-icon.blackhole {
+  background-image: url('icons/blackhole.svg');
+}
