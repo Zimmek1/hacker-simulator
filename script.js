@@ -62,10 +62,10 @@ let upgrades = {
   quantumComputer: { name: 'Quantum Computer', baseCost: 10000, cost: 10000, amount: 0, dps: 100, icon: 'dna', unlocked: false },
   
   // New upgrades you wanted added:
-  aiOverlord: { name: 'AI Overlord', baseCost: 50000, cost: 50000, amount: 0, dps: 500, icon: 'computer', unlocked: false },
-  darkWebServer: { name: 'Dark Web Server', baseCost: 250000, cost: 250000, amount: 0, dps: 2500, icon: 'globe', unlocked: false },
-  malwareFactory: { name: 'Malware Factory', baseCost: 1000000, cost: 1000000, amount: 0, dps: 10000, icon: 'building', unlocked: false },
-  blackHoleComputer: { name: 'Black Hole Computer', baseCost: 5000000, cost: 5000000, amount: 0, dps: 50000, icon: 'dna', unlocked: false },
+  aiOverlord: { name: 'AI Overlord', baseCost: 50000, cost: 50000, amount: 0, dps: 500, icon: 'chip', unlocked: false },
+  darkWebServer: { name: 'Dark Web Server', baseCost: 250000, cost: 250000, amount: 0, dps: 2500, icon: 'cloud', unlocked: false },
+  malwareFactory: { name: 'Malware Factory', baseCost: 1000000, cost: 1000000, amount: 0, dps: 10000, icon: 'bug', unlocked: false },
+  blackHoleComputer: { name: 'Black Hole Computer', baseCost: 5000000, cost: 5000000, amount: 0, dps: 50000, icon: 'blackhole', unlocked: false },
 };
 
 
