@@ -601,6 +601,7 @@ popupBody.innerHTML += `
 
 
 
+
 function closePopup() {
   popup.classList.add('hidden');
   document.querySelectorAll('.tab').forEach(btn => btn.classList.remove('active'));
