@@ -542,12 +542,16 @@ function loadGame() {
     dataStolen = save.dataStolen;
     dps = save.dps;
     clicks = save.clicks;
-    upgrades = { ...upgrades, ...save.upgrades }; // merge old save into new upgrades
+    upgrades = { ...upgrades, ...save.upgrades };
     enhancements = { ...enhancements, ...save.enhancements };
     unlockedAchievements = save.unlockedAchievements || [];
+
+    recalculateTotalDps(); // ← ✨ ADD THIS LINE ✨
+
     update();
   }
 }
+
 
 
 function resetGame() {
@@ -621,6 +625,20 @@ popupBody.innerHTML += `
   </div>
 `;
 
+function recalculateTotalDps() {
+  dps = 0;
+  for (const key in upgrades) {
+    const upgrade = upgrades[key];
+    let effectiveDps = upgrade.dps;
+    for (const enhKey in enhancements) {
+      const enh = enhancements[enhKey];
+      if (enh.upgradeKey === key && enh.applied) {
+        effectiveDps *= enh.multiplier;
+      }
+    }
+    dps += effectiveDps * upgrade.amount;
+  }
+}
 
 
 
