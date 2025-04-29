@@ -10,6 +10,49 @@ let clickBoostActive = false;
 let unlockTimeout;
 let unlockedAchievements = [];
 
+const achievementsList = [
+  { id: 'First 10 Clicks', condition: () => clicks >= 10, reward: 10 },
+  { id: 'First 100 Clicks', condition: () => clicks >= 100, reward: 50 },
+  { id: 'First 500 Clicks', condition: () => clicks >= 500, reward: 100 },
+  { id: 'First 1000 Clicks', condition: () => clicks >= 1000, reward: 250 },
+
+  { id: 'Stole 1 GB', condition: () => dataStolen >= 1000, reward: 20 },
+  { id: 'Stole 10 GB', condition: () => dataStolen >= 10000, reward: 100 },
+  { id: 'Stole 100 GB', condition: () => dataStolen >= 100000, reward: 250 },
+  { id: 'Stole 1 TB', condition: () => dataStolen >= 1000000, reward: 500 },
+
+  { id: 'First Auto-Hacker', condition: () => upgrades.autoHacker.amount >= 1, reward: 15 },
+  { id: '10 Auto-Hackers', condition: () => upgrades.autoHacker.amount >= 10, reward: 50 },
+  { id: 'First Botnet', condition: () => upgrades.botnet.amount >= 1, reward: 25 },
+  { id: '10 Botnets', condition: () => upgrades.botnet.amount >= 10, reward: 75 },
+
+  { id: 'Server Farm Built', condition: () => upgrades.serverFarm.amount >= 1, reward: 50 },
+  { id: '5 Server Farms', condition: () => upgrades.serverFarm.amount >= 5, reward: 100 },
+
+  { id: 'Quantum Computer Assembled', condition: () => upgrades.quantumComputer.amount >= 1, reward: 100 },
+  { id: '5 Quantum Computers', condition: () => upgrades.quantumComputer.amount >= 5, reward: 200 },
+
+  { id: 'AI Overlord Online', condition: () => upgrades.aiOverlord.amount >= 1, reward: 250 },
+  { id: 'Dark Web Server Created', condition: () => upgrades.darkWebServer.amount >= 1, reward: 500 },
+  { id: 'Malware Factory Running', condition: () => upgrades.malwareFactory.amount >= 1, reward: 750 },
+  { id: 'Black Hole Computer Activated', condition: () => upgrades.blackHoleComputer.amount >= 1, reward: 1000 },
+
+  { id: 'Hack Multiplier 2x', condition: () => hackMultiplier >= 2, reward: 100 },
+  { id: 'Hack Multiplier 5x', condition: () => hackMultiplier >= 5, reward: 250 },
+  { id: 'Matrix Speed Boosted', condition: () => matrixSpeed <= 30, reward: 75 },
+
+  { id: 'First Enhancement Bought', condition: () => Object.values(enhancements).some(e => e.applied), reward: 25 },
+  { id: '5 Enhancements Bought', condition: () => Object.values(enhancements).filter(e => e.applied).length >= 5, reward: 100 },
+  { id: '10 Enhancements Bought', condition: () => Object.values(enhancements).filter(e => e.applied).length >= 10, reward: 250 },
+
+  { id: 'First 1M Data Stolen', condition: () => dataStolen >= 1000000, reward: 500 },
+  { id: 'First 10M Data Stolen', condition: () => dataStolen >= 10000000, reward: 1000 },
+  { id: 'First 100M Data Stolen', condition: () => dataStolen >= 100000000, reward: 5000 },
+
+  { id: 'First Prestige (coming soon?)', condition: () => false, reward: 0 } // Placeholder if you want prestige later
+];
+
+
 const units = ["MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
 
 let upgrades = {
@@ -442,15 +485,15 @@ function getEnhancementSVG(key) {
 
 // === Achievements
 function checkAchievements() {
-  if (clicks === 10 && !unlockedAchievements.includes('First 10 Clicks')) {
-    showAchievement("First 10 Clicks");
-    unlockedAchievements.push('First 10 Clicks');
-  }
-  if (dataStolen >= 1000 && !unlockedAchievements.includes('1 GB Stolen')) {
-    showAchievement("1 GB Stolen");
-    unlockedAchievements.push('1 GB Stolen');
+  for (const ach of achievementsList) {
+    if (!unlockedAchievements.includes(ach.id) && ach.condition()) {
+      unlockedAchievements.push(ach.id);
+      showAchievement(ach.id);
+      dataStolen += ach.reward; // Give reward!
+    }
   }
 }
+
 
 function showAchievement(text) {
   const popup = document.createElement('div');
@@ -497,17 +540,19 @@ function showTab(tab, button) {
   popup.classList.remove('hidden');
   popupTitle.textContent = tab.charAt(0).toUpperCase() + tab.slice(1);
   if (tab === 'achievements') {
-    popupBody.innerHTML = unlockedAchievements.length ? unlockedAchievements.join('<br>') : "No achievements yet!";
-  } else if (tab === 'stats') {
-    popupBody.innerHTML = `Total Clicks: ${clicks}<br>Biggest DPS: ${formatNumber(dps)}`;
-  } else if (tab === 'settings') {
-    popupBody.innerHTML = `
-      <button class="settings-button" onclick="saveGame()">Save Game</button>
-      <button class="settings-button" onclick="loadGame()">Load Game</button>
-      <button class="settings-button" onclick="resetGame()">Reset Game</button>
-    `;
-  }
+  const unlocked = unlockedAchievements.length;
+  const total = achievementsList.length;
+  popupBody.innerHTML = `<strong>Achievements Unlocked: ${unlocked}/${total}</strong><br><br>`;
+  
+  achievementsList.forEach(ach => {
+    if (unlockedAchievements.includes(ach.id)) {
+      popupBody.innerHTML += `🏆 ${ach.id} <br>`;
+    } else {
+      popupBody.innerHTML += `🔒 ??? <br>`;
+    }
+  });
 }
+
 
 function closePopup() {
   popup.classList.add('hidden');
