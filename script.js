@@ -267,7 +267,18 @@ function buyUpgrade(key) {
     if (dataStolen >= upgrade.cost) {
       dataStolen -= upgrade.cost;
       upgrade.amount++;
-      dps += upgrade.dps;
+      let effectiveDps = upgrade.dps;
+
+// Check if any enhancement is applied to this upgrade
+for (const enhKey in enhancements) {
+  const enh = enhancements[enhKey];
+  if (enh.upgradeKey === key && enh.applied) {
+    effectiveDps *= enh.multiplier;
+  }
+}
+
+dps += effectiveDps;
+
       upgrade.cost = Math.floor(upgrade.cost * 1.15);
     } else break;
   }
@@ -281,7 +292,15 @@ function sellUpgrade(key) {
   const upgrade = upgrades[key];
   if (upgrade.amount > 0) {
     upgrade.amount--;
-    dps -= upgrade.dps;
+    let effectiveDps = upgrade.dps;
+for (const enhKey in enhancements) {
+  const enh = enhancements[enhKey];
+  if (enh.upgradeKey === key && enh.applied) {
+    effectiveDps *= enh.multiplier;
+  }
+}
+dps -= effectiveDps;
+
     let refund = Math.floor(upgrade.cost * 0.75);
     dataStolen += refund;
     upgrade.cost = Math.floor(upgrade.cost / 1.15);
