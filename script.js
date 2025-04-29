@@ -223,9 +223,7 @@ function createUpgradeCards() {
     if (upgrade.unlocked) {
       const totalCost = calculateTotalCost(upgrade);
       card.innerHTML = `
-        <div class="upgrade-icon">
-          <img src="icons/${upgrade.icon}.svg" style="width: 32px; height: 32px; display: block; margin: auto;" />
-        </div>
+        <div class="upgrade-icon ${upgrade.icon}"></div>
         <strong>${upgrade.name}</strong><br>
         Owned: ${upgrade.amount}<br>
         +${formatNumber(upgrade.amount * upgrade.dps)} DPS<br>
@@ -247,6 +245,7 @@ function createUpgradeCards() {
     updateMiniIcons(key);
   }
 }
+
 
 
 
